@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">menuHub</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="language_not_found">Language not found!</string>
+    <string name="title_activity_email_password">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+
+    <string name="first_name">Имя</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="personal_data">Персональные данные</string>
+    <string name="email">Электронная почта</string>
+    <string name="save_data">Сохранить данные</string>
+    <string name="about_user">Расскажите о себе</string>
+
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="follow">Подписок</string>
+    <string name="followers">Подписчиков</string>
+    <string name="visits">Публикаций</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="unsubscribe">Отписаться</string>
+    <string name="write_message">Сообщение</string>
+    <string name="menu">Меню</string>
+    <string name="map">Карта</string>
+    <string name="opened">Открыто</string>
+    <string name="closed">Закрыто</string>
+    <string name="basket">Корзина</string>
+    <string name="raitings">Отзывы и оценки</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="menuItemName">Название</string>
+    <string name="aboutItem">Описание</string>
+    <string name="ingredientList">Состав</string>
+
+    <string name="itemWeight">Вес единицы</string>
+    <string name="itemPrice">Цена единицы</string>
+
+    <string name="g">гр.</string>
+    <string name="kg">кг.</string>
+    <string name="ml">мл.</string>
+    <string name="l">л.</string>
+    <string name="pcs">шт.</string>
+
+    <string name="byn">BYN</string>
+    <string name="rur">RUR</string>
+    <string name="usd">USD</string>
+    <string name="add_menu_item">Добавить пункт меню</string>
+
+    <string-array name="ingredient_list">
+        <item>Вода</item>
+        <item>Хлеб</item>
+        <item>Креветки</item>
+        <item>Хамон</item>
+    </string-array>
+
+    <string name="search_menu">Search Menu</string>
+    <string name="search_menu_on_map">Поиск меню на карте</string>
+    <string name="search_dish">Поиск блюда</string>
+    <string name="im_on_the_spot">Я на месте</string>
+    <string name="readQR">Читать QR-код</string>
+    <string name="open_menu">Открыть меню</string>
+    <string name="about_app">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="profile">Профиль</string>
+    <string name="payment">Платежи</string>
+    <string name="app_settings">Настройки приложения</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_menu">Редактировать меню</string>
+    <string name="show_menu">Показать меню</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="all">Всё</string>
+    <string name="edit_sections">Редактировать разделы</string>
+    <string name="edit_table_list">Редактировать список столов</string>
+    <string name="add_table">Добавить стол</string>
+    <string name="table_list">Список столов</string>
+    <string name="table_name">Название или номер стола</string>
+    <string name="edit_table">Редактировать стол</string>
+    <string name="scan_code">Сканируйте код</string>
+    <string name="messageList">Список сообщений</string>
+    <string name="write_msg">Напишите сообщение...</string>
+</resources>

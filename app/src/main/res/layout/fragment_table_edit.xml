@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.TableEditFragment">
+    <data>
+        <variable
+            name="table"
+            type="com.mcoolapp.menuhub.model.menu.Table" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveTableButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/button_shape"
+            android:text="@string/save_data"
+            android:textColor="@color/whiteColor"/>
+        <EditText
+            android:id="@+id/tableNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            style="@style/MenuHub.EditTextStyle"
+            android:hint="@string/table_name"
+            android:inputType="text"
+            />
+
+    </LinearLayout>
+
+</layout>

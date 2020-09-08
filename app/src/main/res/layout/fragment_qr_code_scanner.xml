@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.QRCodeScannerFragment">
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/qrCodeScanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </me.dm7.barcodescanner.zxing.ZXingScannerView>
+
+    <LinearLayout
+        android:id="@+id/tableNameLayoutInQRCodeScannerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="invisible">
+
+            <Button
+                android:id="@+id/openMenuButtonInQRCodeScannerFragment"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/button_shape"
+                android:text="@string/open_menu"
+                android:textColor="@color/whiteColor"
+                />
+
+
+    </LinearLayout>
+
+</FrameLayout>

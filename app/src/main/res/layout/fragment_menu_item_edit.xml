@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.CreateMenuItemActivity"
+    android:orientation="vertical">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.mcoolapp.menuhub.viewmodel.MenuItemViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <EditText
+                        android:id="@+id/itemNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        style="@style/MenuHub.EditTextStyle"
+                        android:hint="@string/menuItemName"
+                        android:inputType="text"
+                        app:observeString="@{viewmodel.itemName}"
+                        />
+
+                    <ImageView
+                        android:id="@+id/menuItemImageView"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_add_a_photo_black_24dp"
+                        imageIDWithBucket="@{viewmodel.photoId}"
+                        android:background="@drawable/chat_image_view_background_shape"
+
+
+                        />
+                    <EditText
+                        android:id="@+id/aboutItemEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        style="@style/MenuHub.EditTextStyle"
+                        android:hint="@string/aboutItem"
+                        android:inputType="text"
+                        android:lines="2"
+                        android:maxLines="5"
+                        app:observeString="@{viewmodel.aboutItem}"
+                        />
+
+                    <EditText
+                        android:id="@+id/ingredientsEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        style="@style/MenuHub.EditTextStyle"
+                        android:hint="@string/ingredientList"
+                        android:inputType="text"
+                        observeListString="@{viewmodel.ingredients}"
+                        android:lines="2"
+                        android:maxLines="5"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/activity_vertical_margin">
+
+                        <EditText
+                            android:id="@+id/weightMenuItemEditET"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            style="@style/MenuHub.EditTextStyle"
+                            android:hint="@string/itemWeight"
+                            android:layout_marginEnd="@dimen/activity_vertical_margin"
+                            app:observeDouble="@{viewmodel.weight}"
+                            />
+
+                        <EditText
+                            android:id="@+id/weightUnitMenuItemEditET"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/g"
+                            style="@style/MenuHub.EditTextStyle"
+                            app:popupMenu="@{viewmodel.weightMenu}"
+                            app:observeString="@{viewmodel.weightUnit}"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/activity_vertical_margin">
+                        <EditText
+                            android:id="@+id/priceMenuItemEditET"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            style="@style/MenuHub.EditTextStyle"
+                            android:hint="@string/itemPrice"
+                            android:layout_marginEnd="@dimen/activity_vertical_margin"
+                            app:observeDouble="@{viewmodel.price}"
+                            />
+
+                        <EditText
+                            android:id="@+id/priceUnitMenuItemEditET"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/byn"
+                            style="@style/MenuHub.EditTextStyle"
+                            app:popupMenu="@{viewmodel.priceMenu}"
+                            app:observeString="@{viewmodel.priceUnit}"
+                            />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/saveMenuItemButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:background="@drawable/button_shape"
+                        android:text="@string/save_data"
+                        android:textColor="@color/whiteColor"
+                        android:onClick="saveMenuItemTest"/>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:layout_gravity="center">
+            <ProgressBar
+                android:id="@+id/progressBarEditMenuItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:mutableVisibility="@{viewmodel.progressBarVisibility}"/>
+        </FrameLayout>
+    </FrameLayout>
+</layout>

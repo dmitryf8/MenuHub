@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="headerTextColor">#111E6F</color>
+    <color name="backgroundColor">#ffffff</color>
+
+    <color name="editTextBorderColor">#210357</color>
+    <color name="buttonColor">#000000</color>
+    <color name="fieldNameTextColor">#3F1A1A</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="blackColor">#000000</color>
+    <color name="grayColor">#888888</color>
+    <color name="greenColor">#50E455</color>
+    <color name="blueShadowColor">#552196F3</color>
+
+    <color name="mainColor">#080888</color>
+
+    <color name="grayShadowColor">#55aaaaaa</color>
+    <color name="black_overlay">#66000000</color>
+</resources>

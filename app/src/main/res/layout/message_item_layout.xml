@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="messageData"
+            type="com.mcoolapp.menuhub.model.chat.MessageData" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/messageItemLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/messageImageView"
+            imageIDWithBucketNoLiveData="@{messageData.imageWithBucket}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/chat_image_view_background_shape" />
+
+        <LinearLayout
+            android:id="@+id/messageTextLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/another_user_message_background_shape"
+            >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/messageTextView"
+                    style="@style/MenuHub.FieldNameTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{messageData.messageContent}"
+                    tools:text="Message" />
+
+                <TextView
+                    android:id="@+id/timeTextView"
+                    style="@style/MenuHub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="right"
+                    android:text="@{messageData.time}"
+                    tools:text="00:05" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imageLayoutMessage"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imageInImageTypeOfMessage"
+                    android:layout_width="200dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    imageIDWithBucketNoLiveData="@{messageData.imageWithBucket}"/>
+
+                <TextView
+                    android:id="@+id/descriptionOfMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grayShadowColor"
+                    android:gravity="right"
+                    tools:text="description"
+                    android:visibility="gone"
+                    android:text="@{messageData.description}"/>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

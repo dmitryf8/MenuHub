@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.MenuFragment">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.viewmodel.MenuViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/lllllllll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/editMenuItemButtonMenuFragment"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@drawable/button_shape"
+                android:text="@string/edit_menu"
+                android:textColor="@color/whiteColor"
+                />
+
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/menuTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:isScrollContainer="true"
+            app:tabMode="scrollable"
+            app:tabIndicatorGravity="center"
+            app:tabIndicator="@drawable/indicator_selected"
+            android:padding="5dp"
+
+            />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerMenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            />
+
+
+    </LinearLayout>
+</layout>

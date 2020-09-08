@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/newsFragment"
+
+    >
+
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.mcoolapp.menuhub.fragments.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_userDetailFragment4"
+            app:destination="@id/userDetailFragment4"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userDetailFragment4"
+        android:name="com.mcoolapp.menuhub.fragments.UserDetailFragment"
+        android:label="user_detail_fragment"
+        tools:layout="@layout/user_detail_fragment" >
+        <action
+            android:id="@+id/action_userDetailFragment4_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_userDetailFragment4_to_chatListFragment"
+            app:destination="@id/chatListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.mcoolapp.menuhub.fragments.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_menuEditFragment"
+            app:destination="@id/menuEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuEditFragment"
+        android:name="com.mcoolapp.menuhub.fragments.MenuEditFragment"
+        android:label="fragment_menu_edit"
+        tools:layout="@layout/fragment_menu_edit" >
+        <action
+            android:id="@+id/action_menuEditFragment_to_menuItemEditFragment"
+            app:destination="@id/menuItemEditFragment" />
+        <action
+            android:id="@+id/action_menuEditFragment_to_tableListEditFragment"
+            app:destination="@id/tableListEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuItemEditFragment"
+        android:name="com.mcoolapp.menuhub.fragments.MenuItemEditFragment"
+        android:label="MenuItemEditFragment" />
+    <fragment
+        android:id="@+id/tableListEditFragment"
+        android:name="com.mcoolapp.menuhub.fragments.TableListEditFragment"
+        android:label="fragment_table_list_edit"
+        tools:layout="@layout/fragment_table_list_edit" >
+        <action
+            android:id="@+id/action_tableListEditFragment_to_tableEditFragment"
+            app:destination="@id/tableEditFragment" />
+        <action
+            android:id="@+id/action_tableListEditFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableEditFragment"
+        android:name="com.mcoolapp.menuhub.fragments.TableEditFragment"
+        android:label="fragment_table_edit"
+        tools:layout="@layout/fragment_table_edit" />
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.mcoolapp.menuhub.fragments.ImageFragment"
+        android:label="fragment_image"
+        tools:layout="@layout/fragment_image" />
+    <fragment
+        android:id="@+id/QRCodeScannerFragment2"
+        android:name="com.mcoolapp.menuhub.fragments.QRCodeScannerFragment"
+        android:label="fragment_qr_code_scanner"
+        tools:layout="@layout/fragment_qr_code_scanner" >
+        <action
+            android:id="@+id/action_QRCodeScannerFragment2_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.mcoolapp.menuhub.fragments.ChatListFragment"
+        android:label="fragment_chat_list"
+        tools:layout="@layout/fragment_chat_list" >
+        <action
+            android:id="@+id/action_chatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:popUpTo="@id/chatListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.mcoolapp.menuhub.fragments.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_userDetailFragment42"
+            app:destination="@id/userDetailFragment4" />
+    </fragment>
+</navigation>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="menuItem"
+            type="com.mcoolapp.menuhub.model.menu.MenuItem" />
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="@dimen/activity_little_margin">
+
+            <ImageView
+                android:id="@+id/menuItemEditImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                imageIDWithBucketNoLiveData="@{menuItem.imageWithBucket}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_little_margin">
+
+            <TextView
+                android:id="@+id/menuItemNameEditTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MenuHub.MenuItemHeaderText"
+                android:text="@{menuItem.itemName}"
+                tools:text="itemName"
+                />
+
+            <TextView
+                android:id="@+id/menuItemsIngredientsListEditTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                stringFromList="@{menuItem.ingredients}"
+                android:maxLines="3"
+                tools:text="ingredients"
+                style="@style/MenuHub"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_little_margin"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:id="@+id/menuItemPriceEditTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MenuHub.HeaderText"
+                android:text="@{menuItem.price.toString()}"/>
+            <TextView
+                android:id="@+id/menuItemPriceUnitEditTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{menuItem.priceUnit}"
+                />
+            <ImageView
+                android:id="@+id/editMenuItemButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/menuItemEditButton"
+            android:layout_width="@dimen/button_menu_item_edit_size"
+            android:layout_height="@dimen/button_menu_item_edit_size"
+            android:background="@drawable/ic_baseline_edit_24"
+            />
+        <Button
+            android:id="@+id/menuItemVisibilityButton"
+            android:layout_width="@dimen/button_menu_item_edit_size"
+            android:layout_height="@dimen/button_menu_item_edit_size"
+            android:background="@{menuItem.visible ? @drawable/ic_baseline_visibility_24 : @drawable/ic_baseline_visibility_off_24 }"
+            android:drawableTint="@color/backgroundColor"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"/>
+        <Button
+            android:id="@+id/menuItemDeleteButton"
+            android:layout_width="@dimen/button_menu_item_edit_size"
+            android:layout_height="@dimen/button_menu_item_edit_size"
+            android:background="@drawable/ic_baseline_delete_forever_24"
+            />
+    </LinearLayout>
+</LinearLayout>
+</layout>

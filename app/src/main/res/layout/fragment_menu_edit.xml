@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.MenuEditFragment">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.mcoolapp.menuhub.viewmodel.MenuEditViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/menuEditLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/editTableListButton"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_margin="@dimen/activity_little_margin"
+            android:background="@drawable/button_shape"
+            android:text="@string/edit_table_list"
+            android:textColor="@color/whiteColor"/>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/menuEditTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:isScrollContainer="true"
+            app:tabMode="scrollable"
+            app:tabIndicatorGravity="center"
+            app:tabIndicator="@drawable/indicator_selected"
+            android:padding="5dp"
+            />
+        <Button
+            android:id="@+id/editSectionListButtonMenuEditFragment"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_margin="@dimen/activity_little_margin"
+            android:background="@drawable/button_shape"
+            android:text="@string/edit_sections"
+            android:textColor="@color/whiteColor"
+            />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerMenuEditFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/addMenuItemToSectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_margin="@dimen/activity_little_margin"
+            android:background="@drawable/button_shape"
+            android:text="@string/add_menu_item"
+            android:textColor="@color/whiteColor"/>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_little_margin">8dp</dimen>
+
+    <dimen name="edit_text_border_radius">5dp</dimen>
+    <dimen name="edit_text_border_width">1dp</dimen>
+    <dimen name="button_height">25dp</dimen>
+    <dimen name="header_text_size">24dp</dimen>
+    <dimen name="menu_item_header_text_size">14dp</dimen>
+    <dimen name="corner_radius">3dp</dimen>
+    <dimen name="nav_menu_button_padding">5dp</dimen>
+    <dimen name="nav_menu_button_text_size">12dp</dimen>
+    <dimen name="nav_submenu_button_padding">10dp</dimen>
+    <dimen name="appbar_padding_top">20dp</dimen>
+    <dimen name="button_menu_item_edit_size">40dp</dimen>
+    <dimen name="progress_bar_size">80dp</dimen>
+    <dimen name="message_corner_radius">10dp</dimen>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.mcoolapp.menuhub.viewmodel.UserViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:background="@color/backgroundColor"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/personalDataTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/MenuHub.HeaderText"
+                    android:text="@string/personal_data"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userPhotoImageView"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    app:civ_border_color="@color/editTextBorderColor"
+                    app:civ_border_width="@dimen/edit_text_border_width"
+                    imageIDWithBucket="@{viewmodel.userPhotoWithBucket}"
+                    android:onClick="chooseUserImage"
+                    />
+
+
+
+
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    style="@style/MenuHub.EditTextStyle"
+                    android:hint="@string/first_name"
+                    observeString="@{viewmodel.userName}"
+                    />
+
+                <EditText
+                    android:id="@+id/userNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    style="@style/MenuHub.EditTextStyle"
+                    android:hint="@string/user_name"
+                    observeString="@{viewmodel.userUserName}"
+                    />
+
+                <EditText
+                    android:id="@+id/aboutUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    style="@style/MenuHub.EditTextStyle"
+                    android:hint="@string/about_user"
+                    observeString="@{viewmodel.aboutUser}"
+                    />
+                <Button
+                    android:id="@+id/saveUserDataButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/save_data"
+                    android:textColor="@color/whiteColor"
+                    android:background="@drawable/button_shape"
+                    />
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progressBarEditUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:mutableVisibility="@{viewmodel.progressBarVisibility}"
+                android:visibility="visible"/>
+        </FrameLayout>
+    </FrameLayout>
+</layout>
