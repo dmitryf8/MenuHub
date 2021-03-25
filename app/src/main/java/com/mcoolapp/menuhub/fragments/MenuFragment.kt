@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 import com.mcoolapp.menuhub.R
 import com.mcoolapp.menuhub.databinding.FragmentMenuBinding
 import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.view.MainActivity
@@ -46,7 +47,7 @@ class MenuFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         menuViewModel.setBaseContext(activity?.baseContext!!)
-
+        (activity as MainActivity).setRightButtonInvisible()
         arguments?.let {
             menuID = it.getString(MENU_ID)!!
             System.out.println("menuID = " + menuID)
@@ -68,6 +69,14 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         println("super.onViewCreated(view, savedInstanceState)")
+        menuViewModel.getMenuOwnerID()
+            .observeForever {
+                if (it.equals(FirebaseAuth.getInstance().currentUser!!.uid)) {
+                    (activity as MainActivity).setChatButtonVisible()
+                } else {
+                    (activity as MainActivity).setCartButtonVisible()
+                }
+            }
 
         menuViewModel.loadMenu(menuID)
             .subscribeOn(Schedulers.io())
@@ -76,7 +85,6 @@ class MenuFragment : Fragment() {
                 (activity as MainActivity).setTitleText(it!!)
 
                 menuViewModel.getSectionItemsList().observeForever {
-                    println("sectionItemsList in MenuFragment = " +menuViewModel.getSectionItemsList().value!!)
                     viewPagerMenuFragment.adapter = MenuViewPagerAdapter(menuViewModel.getSectionItemsList().value!!)
 
                     TabLayoutMediator(menuTabLayout, viewPagerMenuFragment) {tab, position ->

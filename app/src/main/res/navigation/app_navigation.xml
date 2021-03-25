@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
     app:startDestination="@id/newsFragment"
-
     >
 
 
@@ -15,9 +14,7 @@
         tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_newsFragment_to_userDetailFragment4"
-            app:destination="@id/userDetailFragment4"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:destination="@id/userDetailFragment4"/>
     </fragment>
 
     <fragment
@@ -107,4 +104,23 @@
             android:id="@+id/action_chatFragment_to_userDetailFragment42"
             app:destination="@id/userDetailFragment4" />
     </fragment>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.mcoolapp.menuhub.fragments.EditPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" />
+    <fragment
+        android:id="@+id/postListFragment"
+        android:name="com.mcoolapp.menuhub.fragments.PostListFragment"
+        android:label="PostListFragment"
+        tools:layout="@layout/fragment_post_list">
+        <action
+            android:id="@+id/action_postListFragment_to_postWithCommentsListFragment"
+            app:destination="@id/postWithCommentsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postWithCommentsListFragment"
+        android:name="com.mcoolapp.menuhub.fragments.PostWithCommentsListFragment"
+        android:label="fragment_post_with_comments_list"
+        tools:layout="@layout/fragment_post_with_comments_list" />
 </navigation>

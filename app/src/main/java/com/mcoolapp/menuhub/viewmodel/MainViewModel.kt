@@ -17,6 +17,7 @@ class MainViewModel : ViewModel(){
 
     private var backArrowButtonVisibility = MutableLiveData<Int>()
     private var cartVisibility = MutableLiveData<Int>()
+    private var chatsButtonVisibility = MutableLiveData<Int>()
     private var homeFragmentContainer = MutableLiveData<Fragment>()
 
     private var searchMenuVisibility = MutableLiveData<Int>()
@@ -39,6 +40,10 @@ class MainViewModel : ViewModel(){
 
     fun getBackArrowButtonVisibility(): MutableLiveData<Int> {
         return backArrowButtonVisibility
+    }
+
+    fun getChatsButtonVisibility(): MutableLiveData<Int> {
+        return chatsButtonVisibility
     }
 
     fun getHomeFragmentContainer(): MutableLiveData<Fragment> {
@@ -97,9 +102,19 @@ class MainViewModel : ViewModel(){
         this.mainViewModelListener = mainViewModelListener
     }
 
-    fun onClick(v:View){
-        System.out.println("click")
+    fun setCartButtonVisible() {
+        cartVisibility.value = View.VISIBLE
+        chatsButtonVisibility.value = View.GONE
     }
+
+    fun setChatsButtonVisible() {
+        cartVisibility.value = View.GONE
+        chatsButtonVisibility.value = View.VISIBLE
+    }
+     fun setRightButtonInvisible() {
+         cartVisibility.value = View.GONE
+         chatsButtonVisibility.value = View.GONE
+     }
     private lateinit var context: Context
 
     fun setContext(context: Context) {

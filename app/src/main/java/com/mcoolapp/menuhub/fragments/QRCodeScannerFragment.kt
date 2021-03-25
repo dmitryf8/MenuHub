@@ -34,6 +34,8 @@ class QRCodeScannerFragment : Fragment(), ZXingScannerView.ResultHandler {
         super.onCreate(savedInstanceState)
         menuRepository.setBaseContext(requireContext())
 
+        (activity as MainActivity).setRightButtonInvisible()
+
     }
 
     override fun onCreateView(

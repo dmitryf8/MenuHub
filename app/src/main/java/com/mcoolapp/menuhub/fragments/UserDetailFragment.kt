@@ -17,6 +17,7 @@ import com.mcoolapp.menuhub.R
 import com.mcoolapp.menuhub.databinding.UserDetailFragmentBinding
 import com.mcoolapp.menuhub.model.chat.ChatConstants
 import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.model.chat.Message
+import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.view.MainActivity
 import com.mcoolapp.menuhub.repository.userrepository.UserRepository
 import com.mcoolapp.menuhub.view.UserEditActivity
 import com.mcoolapp.menuhub.viewmodel.UserViewModel
@@ -57,6 +58,8 @@ class UserDetailFragment : Fragment(), LifecycleOwner {
             lifecycleOwner = this@UserDetailFragment
         }
 
+        (activity as MainActivity).setChatButtonVisible()
+
         userID = arguments?.getString(USER_ID_KEY, "def") ?: "nul"
         System.out.println("userID = " + userID)
         return binding.root
@@ -77,13 +80,8 @@ class UserDetailFragment : Fragment(), LifecycleOwner {
             bundle.putString(MenuFragment.MENU_ID, userViewModel.getUserMenuID().value)
             findNavController().navigate(R.id.action_userDetailFragment4_to_menuFragment, bundle)
         }
-
-        showChatsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_userDetailFragment4_to_chatListFragment)
-        }
-
-        startChatWithUserButton.setOnClickListener {
-
+        userViewModel.getUser().observeForever {
+            (activity as MainActivity).setTitleText(it.userName)
         }
 
     }

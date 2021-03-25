@@ -1,9 +1,7 @@
 package com.mcoolapp.menuhub.model.user
 
-import android.net.Uri
 import androidx.room.*
 import com.google.firebase.Timestamp
-import com.google.firebase.database.ServerValue
 import com.mcoolapp.menuhub.utils.Converters
 import kotlin.collections.HashMap
 
@@ -24,8 +22,7 @@ class User () {
     @ColumnInfo(name = "eMail") var eMail: String = ""
     @ColumnInfo(name = "userPhotoId") var userPhotoId: String = ""
     @ColumnInfo(name = "fcmToken")var fcmToken: String = ""
-
-
+    @ColumnInfo(name = "confidentialID")var confidentialID: String = ""
 
     @ColumnInfo(name = "subscribersIDList") var subscribersIDList: List<String>  = listOf("0") //список подписчиков
     @ColumnInfo(name = "observableIDList") var observableIDList: List<String> = listOf("0")//список наблюдаемых
@@ -33,8 +30,9 @@ class User () {
     @ColumnInfo(name = "userPostIDList") var userPostIDList: List<String> = listOf("0") //список постов пользователя
     @ColumnInfo(name = "userStateVersion") var userStateVersion: Long = 1//версия состояния пользователя, меняется при изменении списка постов, подписчиков, имени и т.д.
     @ColumnInfo(name = "userMenuID") var userMenuID: String = ""//меню для продавца
+    @ColumnInfo(name = "organizationDataID")var organizationDataID: String = ""
 
-    @ColumnInfo(name = "chatIDList") var chatIDList: List<String> = listOf("0")//список чатов
+
 
     @ColumnInfo(name = "userCommunicationDataID") var userCommunicationDataID: String = ""//отзывы и комментарии пользователя
     @TypeConverters(Converters::class)
@@ -66,12 +64,13 @@ class User () {
         userPostIDList = hMap["userPostIDList"] as List<String>
         userStateVersion = hMap["userStateVersion"] as Long
         userMenuID = hMap["userMenuID"] as String
-        chatIDList = hMap["chatIDList"] as List<String>
         userCommunicationDataID = hMap["userCommunicationDataID"] as String
         contactCardID = hMap["contactCardID"] as String
         fcmToken = hMap["fcmToken"] as String
         createdTimeStamp = hMap["createdTimestamp"] as Timestamp
         updatedTimeStamp = hMap["updatedTimestamp"] as Timestamp
+        confidentialID = hMap["confidentialID"] as String
+        organizationDataID = hMap["organizationDataID"] as String
     }
 
     fun toHashMap(): HashMap<String, Any>{
@@ -88,13 +87,15 @@ class User () {
         hMap["userPostIDList"] = userPostIDList
         hMap["userStateVersion"] = userStateVersion
         hMap["userMenuID"] = userMenuID
-        hMap["chatIDList"] = chatIDList
+
         hMap["userCommunicationDataID"] = userCommunicationDataID
         hMap["contactCardID"] = contactCardID
         hMap["createdTimestamp"] = createdTimeStamp
         hMap["updatedTimestamp"] = updatedTimeStamp
         hMap["userPhotoId"] = userPhotoId
         hMap["fcmToken"] = fcmToken
+        hMap["confidentialID"] =  confidentialID
+        hMap["organizationDataID"] = organizationDataID
         return hMap
     }
 
@@ -112,13 +113,16 @@ class User () {
         hMap["userPostIDList"] = userPostIDList
         hMap["userStateVersion"] = userStateVersion
         hMap["userMenuID"] = userMenuID
-        hMap["chatIDList"] = chatIDList
+
         hMap["userCommunicationDataID"] = userCommunicationDataID
         hMap["contactCardID"] = contactCardID
         hMap["createdTimestamp"] = Timestamp.now()
         hMap["updatedTimestamp"] = updatedTimeStamp
         hMap["userPhotoId"] = userPhotoId
         hMap["fcmToken"] = fcmToken
+
+        hMap["confidentialID"] =  confidentialID
+        hMap["organizationDataID"] = organizationDataID
 
         return hMap
     }
@@ -137,13 +141,15 @@ class User () {
         hMap["userPostIDList"] = userPostIDList
         hMap["userStateVersion"] = userStateVersion
         hMap["userMenuID"] = userMenuID
-        hMap["chatIDList"] = chatIDList
+
         hMap["userCommunicationDataID"] = userCommunicationDataID
         hMap["contactCardID"] = contactCardID
         hMap["createdTimestamp"] = createdTimeStamp
         hMap["updatedTimestamp"] = Timestamp.now()
         hMap["userPhotoId"] = userPhotoId
         hMap["fcmToken"] = fcmToken
+        hMap["confidentialID"] =  confidentialID
+        hMap["organizationDataID"] = organizationDataID
 
         return hMap
     }

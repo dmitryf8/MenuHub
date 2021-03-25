@@ -76,11 +76,19 @@ class ChatViewModel : ViewModel(), LifecycleOwner {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                val confidentialInfoID = it!!.confidentialID
+                userRepository.getConfidentialInfo(confidentialInfoID)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                        val chatList = it!!.chatIDList
+                        println(chatList)
+                        chatIDList.value = chatList
+                        bind(chatList)
+                    }, {
 
-                val chatList = it!!.chatIDList
-                println(chatList)
-                chatIDList.value = chatList
-                bind(chatList)
+                    })
+                    .addTo(disposable)
+
             }, {
                 println("error in setUserId in ChatViewModel -> " + it.stackTrace.contentToString())
             })

@@ -53,6 +53,7 @@ class MenuEditFragment : Fragment() , MenuItemsListMenuEditAdapter.MenuEditAdapt
             menuID = it.getString(MenuFragment.MENU_ID)!!
         }
 
+        (activity as MainActivity).setRightButtonInvisible()
 
         binding = FragmentMenuEditBinding.inflate(layoutInflater).apply {
             viewmodel = menuViewModel

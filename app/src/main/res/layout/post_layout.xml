@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="currentuid"
+            type="java.lang.String" />
+        <variable
+            name="imageWithBucket"
+            type="com.mcoolapp.menuhub.model.image.ImageWithBucket" />
+        <variable
+            name="post"
+            type="com.mcoolapp.menuhub.model.post.Post" />
+        <variable
+            name="cpp"
+            type="com.mcoolapp.menuhub.model.post.CommunicationPartPost" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutPL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userPhotoUserDetailImageView"
+            imageIDWithBucketNoLiveData="@{imageWithBucket}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/postOwnerNameTopTextView"
+            style="@style/MenuHub.BlackBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="monospace"
+            android:paddingTop="@dimen/activity_little_margin"
+            android:paddingBottom="@dimen/activity_little_margin"
+            android:text="@{post.ownerName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.26"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="postOwnerName" />
+
+        <ImageView
+            android:id="@+id/postImageView"
+            imageIDWithBucketNoLiveData="@{post.imageWithBucket}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="PostImage"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_menu_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postOwnerNameTopTextView" />
+
+        <TextView
+            android:id="@+id/postOwnerNameTextView"
+            style="@style/MenuHub.BlackBoldMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="monospace"
+            android:maxLines="3"
+            android:text="@{post.ownerName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postImageView"
+            tools:text="potOwnerName" />
+
+        <TextView
+            android:id="@+id/numberOfLikes"
+
+            style="@style/MenuHub.UserDetailFollowersStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            app:intText="@{cpp.likedUserIdList.size()}"
+            app:layout_constraintStart_toEndOf="@+id/likesIV"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/numberOfCommentsTextView"
+            style="@style/MenuHub.UserDetailFollowersStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            app:intText="@{cpp.commentIdList.size()}"
+            app:layout_constraintStart_toEndOf="@+id/commentsIV"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView"
+            tools:text="0" />
+
+        <ImageView
+            android:id="@+id/commentsIV"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_baseline_comment_24"
+            app:layout_constraintStart_toEndOf="@+id/numberOfLikes"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView" />
+
+        <ImageView
+            android:id="@+id/likesIV"
+            android:layout_width="25dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@{cpp.likedUserIdList.contains(currentuid) ? @drawable/ic_arrow_drop_down_black_24dp : @drawable/ic_arrow_drop_up_black_24dp}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView" />
+
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/your_comment"
+            android:inputType="text"
+            android:maxLines="5"
+            app:layout_constraintEnd_toStartOf="@+id/addCommentButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postImageView" />
+
+        <ImageView
+            android:id="@+id/addCommentButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postImageView"
+            app:srcCompat="@drawable/ic_menu_send" />
+
+        <TextView
+            android:id="@+id/postDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{post.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/postOwnerNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/postImageView"
+            tools:text="postDescription"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

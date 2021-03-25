@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.PostWithCommentsListFragment">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.mcoolapp.menuhub.model.post.Post" />
+
+        <variable
+            name="cpp"
+            type="com.mcoolapp.menuhub.model.post.CommunicationPartPost" />
+
+        <variable
+            name="postImageWithBucket"
+            type="com.mcoolapp.menuhub.model.image.ImageWithBucket" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/postScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/postImageImageView"
+                    imageIDWithBucketNoLiveData="@{postImageWithBucket}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_fingerprint_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/commentTextTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{post.description}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postImageImageView" />
+
+                <ImageView
+                    android:id="@+id/likeImageViewPWC"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentTextTextView"
+                    app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+                <TextView
+                    android:id="@+id/numberOfLikesTextView"
+                    intText="@{cpp.likedUserIdList.size()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/likeImageViewPWC"
+                    app:layout_constraintTop_toBottomOf="@+id/commentTextTextView"
+                    tools:text="3" />
+
+                <ImageView
+                    android:id="@+id/commentsImageView"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_baseline_comment_24"
+                    app:layout_constraintStart_toEndOf="@+id/numberOfLikesTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/commentTextTextView" />
+
+                <TextView
+                    android:id="@+id/numberOfCommentsTextViewPWC"
+                    intText="@{cpp.commentIdList.size()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/commentsImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/commentTextTextView"
+                    tools:text="3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentsListRecyclerViewPCW"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postImageImageView"
+                    app:layout_constraintVertical_bias="1.0" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/myCommentEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="@string/your_comment"
+                android:hint="@string/your_comment" />
+
+            <ImageView
+                android:id="@+id/sendAnswerImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/send"
+                app:srcCompat="@drawable/ic_baseline_send_24" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

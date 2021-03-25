@@ -33,6 +33,8 @@ class TableEditFragment : Fragment() {
         menuRepository.setBaseContext(requireContext())
         (activity as MainActivity).setTitleText(getString(R.string.edit_table))
 
+        (activity as MainActivity).setRightButtonInvisible()
+
     }
 
     override fun onCreateView(

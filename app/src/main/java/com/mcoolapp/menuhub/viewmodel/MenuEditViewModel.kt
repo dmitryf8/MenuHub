@@ -69,7 +69,7 @@ class MenuEditViewModel: ViewModel(), LifecycleOwner {
         menuOwnerName.value = user.userName
         sectionTabNameList.value = menu.sectionList
 
-        menuRepository.getMenuItem(menuItemsIdList.value!!)
+        menuRepository.getMenuItemFromMenu(menu.id)
             .subscribeOn(Schedulers.io())
             .subscribe({
                 menuItemList = it
@@ -92,7 +92,7 @@ class MenuEditViewModel: ViewModel(), LifecycleOwner {
                 sectionItemsList.value = list
                 println(sectionItemsList.value!!)
             }, {
-                println("getMenuItem error in menuiewmodel --> " + it)
+                println("getMenuItem  92 щповлоп кпвкп error in menuiewmodel --> " + it)
             }).addTo(disposable)
     }
 

@@ -45,6 +45,7 @@ fun setMenuItemsList(view: RecyclerView, list: MutableLiveData<List<String>>) {
     }
 }
 
+
 @BindingAdapter("mutableVisibility")
 fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
@@ -53,6 +54,10 @@ fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
             view.visibility = it
         }
     }
+}
+@BindingAdapter("intText")
+fun setIntText(view: TextView, i: Int) {
+    view.setText(i.toString())
 }
 
 @BindingAdapter("mutableText")
@@ -193,9 +198,10 @@ fun imageWithBucketForLiveData(
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     val imageRepository = ImageRepository(parentActivity!!.baseContext)
 
-    System.out.println(" BindingAdapter imageIDWithBucket fun imageWithBucket: bucketName = " + imageWithBucket!!)
 
     if (imageWithBucket != null && imageWithBucket.value != null) {
+        System.out.println(" BindingAdapter imageIDWithBucket fun imageWithBucket: bucketName = " + imageWithBucket.value!!.bucketName)
+
         imageWithBucket.observe(parentActivity, Observer { value ->
             imageRepository.getImageFromBucket(value!!)
                 .subscribeOn(Schedulers.io())

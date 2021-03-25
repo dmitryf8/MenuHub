@@ -1,4 +1,4 @@
-package com.mcoolapp.menuhub.viewmodel
+    package com.mcoolapp.menuhub.viewmodel
 
 import android.content.Context
 import android.content.Intent
@@ -245,19 +245,21 @@ class MenuItemViewModel : ViewModel(), LifecycleOwner {
 
     fun setMenuItemImageId (id: String) {
         println("bucketName in fun setMenuItemImageId (id: String) -------------->" + "bucket"+ownerId.value)
-        photoId.value = ImageWithBucket(id, "bucket"+ownerId.value)
+        photoId.value = ImageWithBucket(id, "bucket"+FirebaseAuth.getInstance().currentUser!!.uid)
     }
 
     fun loadMenuItem(id: String) {
 
             progressBarVisibility.value = View.VISIBLE
 
-            menuRepository.getMenuItem(listOf(id))
+            println("menuItem ID ------------------------->   "+ id+"  !!")
+
+            menuRepository.getMenuItem(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     progressBarVisibility.value = View.GONE
-                    val menuItem = it.get(0)
+                    val menuItem = it
                     println("menuItem.ItemName in loadMenuItem MenuItem ViewModel = " + menuItem!!.itemName)
                     bind(menuItem)
                     println("menuItem.ItemName in loadMenuItem MenuItem ViewModel = " + menuItem.itemName)
@@ -265,7 +267,7 @@ class MenuItemViewModel : ViewModel(), LifecycleOwner {
 
                 }, {
                     progressBarVisibility.value = View.GONE
-                    println("error in MenuItemViewModel loadMenuItem -> " + it.stackTrace!!.contentToString())
+                    println("error in MenuItemViewModel loadMenuItem -> " + it.message)
 
                 })
                 .addTo(disposable)

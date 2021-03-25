@@ -26,6 +26,7 @@ class TableListEditFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).setTitleText(getString(R.string.table_list))
+        (activity as MainActivity).setRightButtonInvisible()
 
     }
 

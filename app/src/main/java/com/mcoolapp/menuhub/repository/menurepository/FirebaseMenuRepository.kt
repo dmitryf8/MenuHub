@@ -110,6 +110,7 @@ class FirebaseMenuRepository {
         private const val MENU_ITEMS_COLLECTION = "menu_items"
         private const val COMMUNICATION_PART_MENU_ITEM = "communication_part_menu_item"
         private const val TABLE_COLLECTION = "table"
+        private const val POST_COLLECTION = "post"
 
 
     }
@@ -202,11 +203,11 @@ class FirebaseMenuRepository {
     }
 
     fun getTableList(idList: List<String>): Observable<List<Table>> {
-        return Observable.create() {emitter ->
+        return Observable.create() { emitter ->
             remoteDB.collection(TABLE_COLLECTION)
                 .whereIn("id", idList)
                 .get()
-                .addOnSuccessListener{
+                .addOnSuccessListener {
                     val list = arrayListOf<Table>()
                     val docs = it.documents
                     for (doc in docs) {
@@ -218,7 +219,7 @@ class FirebaseMenuRepository {
 
                 }
                 .addOnFailureListener {
-                    println("error in FireBaseMenuRepository.getTableList(" + idList +") -> " + it.message)
+                    println("error in FireBaseMenuRepository.getTableList(" + idList + ") -> " + it.message)
                 }
 
         }
@@ -238,16 +239,16 @@ class FirebaseMenuRepository {
                     emitter.onNext(table)
 
                     /**val job: Job = GlobalScope.launch(Dispatchers.IO) {
-                        dataBase = DataBase.getAppDataBase(context = context!!)
-                        val t = dataBase!!.tableDao().getTable(id)
-                        if (t != null){
-                            println("!!!!!!!!!!!!!table exist in room")
-                            dataBase!!.tableDao().update(table)}
-                        else {
-                            println("!!!!!!!!!!!!!table not exist in room")
-                            dataBase!!.tableDao().insert(table)
-                        }
-                        System.out.println("-------------------------Table saved in room---------------------------------------")
+                    dataBase = DataBase.getAppDataBase(context = context!!)
+                    val t = dataBase!!.tableDao().getTable(id)
+                    if (t != null){
+                    println("!!!!!!!!!!!!!table exist in room")
+                    dataBase!!.tableDao().update(table)}
+                    else {
+                    println("!!!!!!!!!!!!!table not exist in room")
+                    dataBase!!.tableDao().insert(table)
+                    }
+                    System.out.println("-------------------------Table saved in room---------------------------------------")
                     }
                     job.start()**/
                     //updateTable(table)
@@ -262,12 +263,33 @@ class FirebaseMenuRepository {
     }
 
 
-    fun getMenuItemList(idList: List<String>): Observable<List<MenuItem>?> {
+    fun getMenuItem(menuItemID: String): Observable<MenuItem> {
         return Observable.create() { emitter ->
-            System.out.println("!!!!!!!!!!!!!!!!!!!!getMenuItemList(idList: List<String>): Observable<List<MenuItem>?> id = " + idList)
+
+            remoteDB.collection(MENU_ITEMS_COLLECTION)
+                .document(menuItemID)
+                .get()
+                .addOnSuccessListener {
+                    val doc = it
+                    val menuItem = MenuItem(doc.data!!)
+
+                    emitter.onNext(menuItem)
+                    if (!emitter.isDisposed) emitter.onComplete()
+                }
+                .addOnFailureListener {
+                    System.out.println("FMR on error: " + it.toString())
+                    emitter.onError(it)
+                    if (!emitter.isDisposed) emitter.onComplete()
+                }
+        }
+    }
+
+    fun getMenuItemListFromMenu(menuID: String): Observable<List<MenuItem>?> {
+        return Observable.create() { emitter ->
+            System.out.println("!!!!!!!!!!!!!!!!!!!!getMenuItemList(idList: List<String>): Observable<List<MenuItem>?> id = " + menuID)
             val list = arrayListOf<MenuItem>()
             remoteDB.collection(MENU_ITEMS_COLLECTION)
-                .whereIn("id", idList)
+                .whereEqualTo("menuID", menuID)
                 .get()
                 .addOnSuccessListener {
                     val docs = it.documents
@@ -297,6 +319,7 @@ class FirebaseMenuRepository {
                 }
         }
     }
+
 
     fun getCommunicationPartMenuItemList(idList: List<String>): Observable<List<CommunicationPartMenuItem>?> {
         return Observable.create() { emitter ->

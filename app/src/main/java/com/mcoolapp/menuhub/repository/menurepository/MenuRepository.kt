@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MenuRepository {
 
@@ -114,64 +115,75 @@ class MenuRepository {
         }
     }
 
-    fun getMenuItem(idList: List<String>): Observable<List<MenuItem?>> {
-        System.out.println("fun getMenuItem(idList: List<String>): Observable<MenuItem?> id = " + idList)
+    fun getMenuItemFromMenu(menuID: String): Observable<List<MenuItem?>> {
+        System.out.println("fun getMenuItem(idList: List<String>): Observable<MenuItem?> id = " + menuID)
+        return Observable.create() { emitter ->
+
+            System.out.println("return Observable.create() {emitter ->")
+
+            firebaseMenuRepository.getMenuItemListFromMenu(menuID)
+                .subscribeOn(Schedulers.io())
+                // .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    println("firebaseMenuRepository.getMenuItemList -> " + it)
+                    emitter.onNext(it!!)
+                    if (!emitter.isDisposed) emitter.onComplete()
+
+                    for (menuItem in it) {
+                        isExistsInRoom(menuItem)
+                            .subscribeOn(Schedulers.io())
+                            .subscribe({
+                                if (it!!) {
+                                    updateInRoom(menuItem)
+                                } else {
+                                    saveInRoom(menuItem)
+                                }
+                            }, {
+                                System.out.println("Error getMenuItem(idList: List<String>) : " + it)
+                                emitter.onError(it)
+                            })
+                            .addTo(disposable)
+
+                    }
+                }, {
+                    emitter.onError(it)
+                    System.out.println("----------------------------------------MenuRepository -> getMenuItems(" + it + ") error!!!!--------------------------------------------------")
+                })
+
+        }
+    }
+
+    fun getMenuItem(menuItemID: String): Observable<MenuItem?> {
+        System.out.println("fun getMenuItem(idList: List<String>): Observable<MenuItem?> id = " + menuItemID)
         return Observable.create() { emitter ->
 
             System.out.println("return Observable.create() {emitter ->")
             dataBase = DataBase.getAppDataBase(context = context!!)
             var isExists = true
             println("var isExists = true")
-            val list: ArrayList<MenuItem> = arrayListOf()
+            val menuItem = MenuItem()
             println("val list: ArrayList<MenuItem> = arrayListOf()")
-
-            for (id in idList) {
-                println("for (id in idList) {")
-                if (!dataBase!!.menuItemDao().isExist(id)) {
-                    println("if (!dataBase!!.menuItemDao().isExist(id)) {")
-                    isExists = false
-                    println("isExists = false")
-                } else {
-                    println("} else {")
-                    list.add(dataBase!!.menuItemDao().getMenuItem(id))
-                    println("list.add(dataBase!!.menuItemDao().getMenuItem(id))")
-
-                }
+            try {
+                dataBase!!.menuItemDao().getMenuItem(menuItemID)
+            } catch (e: Exception) {
+                println(e.message.toString())
             }
 
-
-            if (!isExists) {
-                firebaseMenuRepository.getMenuItemList(idList)
+            if (menuItem.id == "") {
+                firebaseMenuRepository.getMenuItem(menuItemID)
                     .subscribeOn(Schedulers.io())
-                   // .observeOn(AndroidSchedulers.mainThread())
+                    // .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         println("firebaseMenuRepository.getMenuItemList -> " + it)
                         emitter.onNext(it!!)
                         if (!emitter.isDisposed) emitter.onComplete()
-
-                        for (menuItem in it) {
-                            isExistsInRoom(menuItem)
-                                .subscribeOn(Schedulers.io())
-                                .subscribe({
-                                    if (it!!) {
-                                        updateInRoom(menuItem)
-                                    } else {
-                                        saveInRoom(menuItem)
-                                    }
-                                }, {
-                                    System.out.println("Error getMenuItem(idList: List<String>) : " + it)
-                                    emitter.onError(it)
-                                })
-                                .addTo(disposable)
-
-                        }
                     }, {
                         emitter.onError(it)
                         System.out.println("----------------------------------------MenuRepository -> getMenuItems(" + it + ") error!!!!--------------------------------------------------")
                     })
             } else {
                 System.out.println("menuItems in room")
-                emitter.onNext(list)
+                emitter.onNext(menuItem)
                 if (!emitter.isDisposed) emitter.onComplete()
             }
         }
@@ -299,7 +311,7 @@ class MenuRepository {
     }
 
     fun getTableList(idList: List<String>): Observable<List<Table>> {
-        return Observable.create {emitter ->
+        return Observable.create { emitter ->
             firebaseMenuRepository.getTableList(idList)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
@@ -493,8 +505,12 @@ class MenuRepository {
     }
 
 
-    fun saveMenuItemForMenu(menuID: String, sectionName: String?,  menuItemId: String?): Observable<Boolean?> {
-        return Observable.create{emitter ->
+    fun saveMenuItemForMenu(
+        menuID: String,
+        sectionName: String?,
+        menuItemId: String?
+    ): Observable<Boolean?> {
+        return Observable.create { emitter ->
             getMenu(menuID)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
@@ -507,7 +523,7 @@ class MenuRepository {
                         .subscribe({
                             emitter.onNext(true)
                             if (!emitter.isDisposed) emitter.onComplete()
-                        },{
+                        }, {
                             emitter.onError(it)
                             if (!emitter.isDisposed) emitter.onComplete()
                         })
@@ -521,7 +537,7 @@ class MenuRepository {
     }
 
     fun saveTableForMenu(menuID: String, tableID: String?): Observable<Boolean?> {
-        return Observable.create{emitter ->
+        return Observable.create { emitter ->
             getMenu(menuID)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
@@ -531,7 +547,7 @@ class MenuRepository {
                         .subscribe({
                             emitter.onNext(true)
                             if (!emitter.isDisposed) emitter.onComplete()
-                        },{
+                        }, {
                             emitter.onError(it)
                             if (!emitter.isDisposed) emitter.onComplete()
                         })

@@ -24,7 +24,7 @@ import java.io.ByteArrayOutputStream
 
 
 class ImageRepository(val context: Context) {
-    private var dataBase = DataBase.INSTANCE
+    //private var dataBase = DataBase.INSTANCE
 
     fun saveImage(uri: Uri, buckatId: String): Observable<String?> {
         return Observable.create { emitter ->
@@ -80,19 +80,20 @@ class ImageRepository(val context: Context) {
                     imageWithId.id = id
                     imageWithId.data = bitmapdata
                     println("save image  put Stream imageWithId  data.size ->" + imageWithId.data.size)
-                    isExistsInRoom(id)
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({
-                            if (it!!) {
-                                updateImageInRoom(imageWithId)
-                            } else {
-                                saveImageInRoom(imageWithId)
-                            }
-                        }, {
-                            System.out.println("isExists(imageWithId) error " + it.stackTrace!!.contentToString())
-                        }
-                        )
-                        .addTo(disposable)
+                    /**isExistsInRoom(id)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                    if (it!!) {
+                    updateImageInRoom(imageWithId)
+                    } else {
+                    saveImageInRoom(imageWithId)
+                    }
+                    }, {
+                    System.out.println("isExists(imageWithId) error " + it.stackTrace!!.contentToString())
+                    }
+                    )
+                    .addTo(disposable)
+                     **/
 
                     if (!emitter.isDisposed) emitter.onComplete()
                 }
@@ -135,27 +136,30 @@ class ImageRepository(val context: Context) {
 
     fun getImageFromBucket(imageWithBucket: ImageWithBucket): Observable<Bitmap?> {
         return Observable.create { emitter ->
-            dataBase = DataBase.getAppDataBase(context = context)
-            val imageWithId = dataBase!!.imageWithIdDao().getImage(imageWithBucket.imageId!!)
+            //dataBase = DataBase.getAppDataBase(context = context)
+            //val imageWithId = dataBase!!.imageWithIdDao().getImage(imageWithBucket.imageId!!)
 
-            if (imageWithId == null || imageWithId!!.data == null ) {
+            if (true
+            /**imageWithId == null || imageWithId!!.data == null**/
+            ) {
                 val storageRef =
                     FirebaseStorage.getInstance("gs://menuhub-3474a.appspot.com")
                         .getReference(imageWithBucket.bucketName)
                 val imageRef = storageRef.child(imageWithBucket.imageId!!)
 
-
+                println("imageWithID.image = " + imageWithBucket.imageId + "/")
                 val TEN_MEGABYTE: Long = 10 * 1024 * 1024
                 imageRef.getBytes(TEN_MEGABYTE)
                     .addOnSuccessListener {
                         System.out.println("byteArray size = " + it!!.size)
                         emitter.onNext(BitmapFactory.decodeByteArray(it, 0, it.size))
+                        /**
                         val imaWithId = ImageWithId()
                         imaWithId.id = imageWithBucket.imageId!!
                         imaWithId.data = it
 
                         saveImageInRoom(imaWithId)
-
+                         **/
                         if (!emitter.isDisposed) emitter.onComplete()
                     }
                     .addOnFailureListener {
@@ -165,16 +169,17 @@ class ImageRepository(val context: Context) {
                     }
 
             } else {
+                /**
                 getBitmap(imageWithId)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        emitter.onNext(it!!)
-                        if (emitter.isDisposed) emitter.onComplete()
-                    }, {
-                        emitter.onError(it!!)
-                        if (emitter.isDisposed) emitter.onComplete()
-                    })
-                    .addTo(disposable)
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                emitter.onNext(it!!)
+                if (emitter.isDisposed) emitter.onComplete()
+                }, {
+                emitter.onError(it!!)
+                if (emitter.isDisposed) emitter.onComplete()
+                })
+                .addTo(disposable) **/
                 if (emitter.isDisposed) emitter.onComplete()
 
             }
@@ -202,10 +207,11 @@ class ImageRepository(val context: Context) {
     }
 
     fun generateQRCode(table: Table): Observable<String> {
-        return Observable.create() {emitter ->
+        return Observable.create() { emitter ->
             val tableID = table.id
             println("table")
-            val byteArrayOutputStream = QRCode.from("com.mcoolapp.menuhub " + tableID).to(ImageType.JPG).stream()
+            val byteArrayOutputStream =
+                QRCode.from("com.mcoolapp.menuhub " + tableID).to(ImageType.JPG).stream()
             val bytes = byteArrayOutputStream.toByteArray()
             val storageRef = FirebaseStorage.getInstance()
             val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
@@ -228,35 +234,36 @@ class ImageRepository(val context: Context) {
 
         }
     }
-
+    /**
     private fun isExistsInRoom(id: String): Observable<Boolean?> {
-        System.out.println("private fun isExists(imageWithId: ImageWithId): Observable<Boolean?>")
+    System.out.println("private fun isExists(imageWithId: ImageWithId): Observable<Boolean?>")
 
-        return Observable.create { emitter ->
-            dataBase = DataBase.getAppDataBase(context)
-            val isExists = dataBase!!.imageWithIdDao().isExist(id)
-            System.out.println("isExists == " + isExists)
-            emitter.onNext(isExists)
-            if (!emitter.isDisposed) emitter.onComplete()
-        }
+    return Observable.create { emitter ->
+    dataBase = DataBase.getAppDataBase(context)
+    val isExists = dataBase!!.imageWithIdDao().isExist(id)
+    System.out.println("isExists == " + isExists)
+    emitter.onNext(isExists)
+    if (!emitter.isDisposed) emitter.onComplete()
+    }
     }
 
 
     private fun saveImageInRoom(imageWithId: ImageWithId) {
 
-        val job: Job = GlobalScope.launch(Dispatchers.IO) {
-            dataBase = DataBase.getAppDataBase(context)
-            dataBase!!.imageWithIdDao().insert(imageWithId)
-            }
-        job.start()
+    val job: Job = GlobalScope.launch(Dispatchers.IO) {
+    dataBase = DataBase.getAppDataBase(context)
+    dataBase!!.imageWithIdDao().insert(imageWithId)
+    }
+    job.start()
     }
 
     private fun updateImageInRoom(imageWithId: ImageWithId) {
-        val job: Job = GlobalScope.launch(Dispatchers.IO) {
-            dataBase = DataBase.getAppDataBase(context)
-            dataBase!!.imageWithIdDao().update(imageWithId)
-            System.out.println("-------------------------Image updated in room---------------------------------------")
-        }
-        job.start()
+    val job: Job = GlobalScope.launch(Dispatchers.IO) {
+    dataBase = DataBase.getAppDataBase(context)
+    dataBase!!.imageWithIdDao().update(imageWithId)
+    System.out.println("-------------------------Image updated in room---------------------------------------")
     }
+    job.start()
+    }
+     **/
 }

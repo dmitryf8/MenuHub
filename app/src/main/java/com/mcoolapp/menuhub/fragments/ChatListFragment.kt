@@ -50,7 +50,7 @@ class ChatListFragment : Fragment() {
         arguments?.let {
         }
 
-
+        (activity as MainActivity).setRightButtonInvisible()
         binding = FragmentChatListBinding.inflate(layoutInflater).apply {
             viewmodel = chatViewModel
             lifecycleOwner = this@ChatListFragment

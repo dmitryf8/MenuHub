@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mcoolapp.menuhub.R
+import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.view.MainActivity
 import com.mcoolapp.menuhub.model.image.ImageWithBucket
 import com.mcoolapp.menuhub.repository.ImageRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,6 +33,7 @@ class ImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as MainActivity).setRightButtonInvisible()
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
 

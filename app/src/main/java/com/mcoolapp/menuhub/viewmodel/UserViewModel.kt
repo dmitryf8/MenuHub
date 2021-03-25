@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Timestamp
 import com.mcoolapp.menuhub.model.image.ImageWithBucket
 import com.mcoolapp.menuhub.model.user.User
 import com.mcoolapp.menuhub.model.user.UserAndImagePathUri
@@ -98,37 +99,25 @@ class UserViewModel : ViewModel() {
 
 
     public fun getUser(): MutableLiveData<User> {
-        val user = User()
-        user.id = userID.value!!
-        if (userName.value != null)
-            user.name = userName.value!!
-        if (userUserName.value != null)
-            user.userName = userUserName.value!!
-        if (aboutUser.value != null)
-            user.aboutUser = aboutUser.value!!
-        if (userPhotoId.value != null)
-            user.userPhotoId = userPhotoId.value!!
-        if (userMenuID != null)
-            user.userMenuID = userMenuID.value!!
-        this.user.value = user
-        return this.user
+        return user
     }
 
 
-    fun bind(user: User) {
+    fun bind(us: User) {
 
-        System.out.println("bind(user) user.username = " + user.userName)
-        userName.value = user.name
-        aboutUser.value = user.aboutUser
-        userUserName.value = user.userName
-        userFollowsNumber.value = user.observableIDList.size.toString()
-        userFollowersNumber.value = user.subscribersIDList.size.toString()
-        userPostNumber.value = user.userPostIDList.size.toString()
-        userID.value = user.id
-        userPhotoId.value = user.userPhotoId
-        userPhotoWithBucket.value = ImageWithBucket(user.userPhotoId, "bucket" + user.id)
-        userMenuID.value = user.userMenuID
+        System.out.println("bind(user) user.username = " + us.userName)
+        userName.value = us.name
+        aboutUser.value = us.aboutUser
+        userUserName.value = us.userName
+        userFollowsNumber.value = us.observableIDList.size.toString()
+        userFollowersNumber.value = us.subscribersIDList.size.toString()
+        userPostNumber.value = us.userPostIDList.size.toString()
+        userID.value = us.id
+        userPhotoId.value = us.userPhotoId
+        userPhotoWithBucket.value = ImageWithBucket(us.userPhotoId, "bucket" + us.id)
+        userMenuID.value = us.userMenuID
 
+        user.value = us
 
 
         System.out.println("userusername----------->" + userUserName.value)
@@ -192,6 +181,13 @@ class UserViewModel : ViewModel() {
         if (userID.value != null) {
             System.out.println("userID.value != null in userViewModel.saveUser() = " + userID.value)
             val user = getUser().value
+
+            user!!.userPhotoId = userPhotoId.value!!
+            user.aboutUser = aboutUser.value!!
+            user.userName = userUserName.value!!
+            user.updatedTimeStamp = Timestamp.now()
+            user.name = userName.value!!
+
             progressBarVisibility.value = View.VISIBLE
             userRepo.createOrUpdateUser(user!!)
                 .subscribeOn(Schedulers.io())
@@ -217,8 +213,7 @@ class UserViewModel : ViewModel() {
     fun newUserPhotoId(imageId: String?) {
         getUserPhotoId().value = imageId
         val imageWithBucket = ImageWithBucket(imageId, getUserPhotoWithBucket().value!!.bucketName)
-        getUserPhotoWithBucket().value =imageWithBucket
-
+        getUserPhotoWithBucket().value = imageWithBucket
     }
     fun onClick(){
         System.out.println("click")

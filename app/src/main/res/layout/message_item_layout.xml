@@ -46,7 +46,7 @@
 
                 <TextView
                     android:id="@+id/messageTextView"
-                    style="@style/MenuHub.FieldNameTextStyle"
+                    style="@style/MenuHub.ChatMessageTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{messageData.messageContent}"
@@ -54,11 +54,11 @@
 
                 <TextView
                     android:id="@+id/timeTextView"
-                    style="@style/MenuHub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:gravity="right"
+                    android:textSize="10dp"
                     android:text="@{messageData.time}"
                     tools:text="00:05" />
             </LinearLayout>

@@ -7,6 +7,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="edit_post">Редактировать пост</string>
+
     <string name="language_not_found">Language not found!</string>
     <string name="title_activity_email_password">Sign in</string>
     <!-- Strings related to login -->
@@ -94,5 +96,10 @@
     <string name="edit_table">Редактировать стол</string>
     <string name="scan_code">Сканируйте код</string>
     <string name="messageList">Список сообщений</string>
-    <string name="write_msg">Напишите сообщение...</string>
+    <string name="write_msg">Напишите сообщение&#8230;</string>
+    <string name="search">Поиск</string>
+    <string name="your_comment">Ваш комментарий&#8230;</string>
+    <string name="news">Новости</string>
+    <string name="send">Отправить</string>
+    <string name="comment_added">Комментарий добавлен</string>
 </resources>

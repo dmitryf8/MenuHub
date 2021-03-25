@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.mcoolapp.menuhub.R
+import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_news.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,7 +30,7 @@ class NewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
-
+        (activity as MainActivity).setRightButtonInvisible()
 
     }
 

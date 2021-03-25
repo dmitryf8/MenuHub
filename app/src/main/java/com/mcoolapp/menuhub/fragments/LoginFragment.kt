@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mcoolapp.menuhub.R
+import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.view.MainActivity
 import com.mcoolapp.menuhub.view.UserDetailActivity
 import kotlinx.android.synthetic.main.activity_email_password.*
 
@@ -27,6 +28,7 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        (activity as MainActivity).setRightButtonInvisible()
         sign_up_button.setOnClickListener {
             createAccount(emailEditText.text.toString(), passwordEditText.text.toString())
         }

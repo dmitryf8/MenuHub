@@ -34,6 +34,7 @@ class MenuItemEditFragment : Fragment(), MainActivity.MenuItemImageIDListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as MainActivity).setRightButtonInvisible()
         arguments?.let {
             if (it.containsKey(MenuFragment.MENU_ITEM_ID)){
                 menuItemID = it.getString(MenuFragment.MENU_ITEM_ID)!!
@@ -117,7 +118,6 @@ class MenuItemEditFragment : Fragment(), MainActivity.MenuItemImageIDListener{
         disposable.clear()
         super.onDestroy()
     }
-
 
     override fun imageID(id: String) {
         menuItemViewModel.setMenuItemImageId(id)

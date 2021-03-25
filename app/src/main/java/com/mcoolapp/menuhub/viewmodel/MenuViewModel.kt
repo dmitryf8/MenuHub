@@ -71,8 +71,9 @@ class MenuViewModel : ViewModel(), LifecycleOwner {
         menuOwnerName.value = user.userName
         sectionTabNameList.value = menu.sectionList
 
-        menuRepository.getMenuItem(menuItemsIdList.value!!)
+        menuRepository.getMenuItemFromMenu(menu.id)
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 menuItemList = it
                 var list = mutableListOf<List<MenuItem>>()

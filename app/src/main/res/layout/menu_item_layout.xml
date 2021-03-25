@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="menuItem"
             type="com.mcoolapp.menuhub.model.menu.MenuItem" />
@@ -10,78 +12,76 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/menu_item_background_shape"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+
+        <ImageView
+            android:id="@+id/menuItemImageView"
+            imageIDWithBucketNoLiveData="@{menuItem.imageWithBucket}"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/menu_item_background_shape"/>
+
 
         <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:padding="@dimen/activity_little_margin">
-
-            <ImageView
-                android:id="@+id/menuItemImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                imageIDWithBucketNoLiveData="@{menuItem.imageWithBucket}"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:padding="@dimen/activity_little_margin">
-            
+
             <TextView
                 android:id="@+id/menuItemNameTextView"
+                style="@style/MenuHub.MenuItemHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/MenuHub.MenuItemHeaderText"
                 android:text="@{menuItem.itemName}"
-                tools:text="itemName"
-                />
+                tools:text="itemName" />
 
             <TextView
                 android:id="@+id/menuItemsIngredientsListTextView"
+                style="@style/MenuHub"
+                stringFromList="@{menuItem.ingredients}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                stringFromList="@{menuItem.ingredients}"
                 android:maxLines="3"
-                tools:text="ingredients"
-                style="@style/MenuHub"/>
+                tools:text="ingredients" />
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_little_margin"
-        android:gravity="center_horizontal"
-        >
-        <TextView
-            android:id="@+id/menuItemPriceTextView"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/MenuHub.HeaderText"
-            android:text="@{menuItem.price.toString()}"/>
-        <TextView
-            android:id="@+id/menuItemPriceUnitTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{menuItem.priceUnit}"
-            />
-        <ImageView
-            android:id="@+id/addMenuItemToCartButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            />
+            android:layout_height="50dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_little_margin">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/menuItemPriceTextView"
+                style="@style/MenuHub.HeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{menuItem.price.toString()}" />
+
+            <TextView
+                android:id="@+id/menuItemPriceUnitTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{menuItem.priceUnit}" />
+
+            <ImageView
+                android:id="@+id/addMenuItemToCartButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

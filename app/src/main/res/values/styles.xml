@@ -22,6 +22,17 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/headerTextColor</item>
     </style>
+    <style name="MenuHub.BlackBold">
+        <item name="android:textColor">@color/blackColor</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MenuHub.BlackBoldMini">
+        <item name="android:textColor">@color/blackColor</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="MenuHub.MenuItemHeaderText">
         <item name="android:textSize">@dimen/menu_item_header_text_size</item>
@@ -53,6 +64,11 @@
         <item name="android:textColor">@color/blackColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MenuHub.ChatMessageTextStyle">
+        <item name="android:textColor">@color/blackColor</item>
         <item name="android:textSize">18sp</item>
     </style>
 

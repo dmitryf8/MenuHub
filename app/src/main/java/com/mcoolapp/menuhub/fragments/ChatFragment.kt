@@ -61,6 +61,7 @@ class ChatFragment : Fragment() {
             }
         }
 
+        (activity as MainActivity).setRightButtonInvisible()
 
         binding = FragmentChatBinding.inflate(layoutInflater).apply {
             viewmodel = chatViewModel

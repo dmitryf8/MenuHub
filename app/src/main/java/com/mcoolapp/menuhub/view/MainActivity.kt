@@ -7,35 +7,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.navigation.NavigationView
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
 import com.mcoolapp.menuhub.R
 import com.mcoolapp.menuhub.databinding.ActivityMainBinding
 import com.mcoolapp.menuhub.fragments.UserDetailFragment
-import com.mcoolapp.menuhub.model.chat.ChatConstants
-import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.model.chat.Message
 import com.mcoolapp.menuhub.model.chat.com.mcoolapp.menuhub.viewmodel.MainViewModel
 import com.mcoolapp.menuhub.repository.ImageRepository
-import com.mcoolapp.menuhub.repository.userrepository.UserRepository
 import com.mcoolapp.menuhub.services.MHubFCMService
 import com.mcoolapp.menuhub.view.PERMISSION_REQUEST
-import com.mcoolapp.menuhub.view.UserEditActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -54,6 +43,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     companion object {
         val MENU_ITEM_IMAGE_REQUEST = 644
+        val POST_IMAGE_REQUEST = 637
         val SHARED_PREFERENCE = "mnbjhghjfrtyhgvhgv"
     }
 
@@ -61,13 +51,17 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     override fun onResume() {
         super.onResume()
-        if (intent.hasExtra(MHubFCMService.NOTIFICATION_MARKER)){
-            println("we have a NOTIFICATION_MARKER with id -> " + intent.getStringExtra(MHubFCMService.NOTIFICATION_MARKER))
+        if (intent.hasExtra(MHubFCMService.NOTIFICATION_MARKER)) {
+            println(
+                "we have a NOTIFICATION_MARKER with id -> " + intent.getStringExtra(
+                    MHubFCMService.NOTIFICATION_MARKER
+                )
+            )
         } else {
             println("we dont have NOTIFICATON_MARKER")
         }
 
-            }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,14 +82,15 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         mainViewModel.setContext(this)
-        val sharedPreference =  getSharedPreferences(MainActivity.SHARED_PREFERENCE, Context.MODE_PRIVATE)
+        val sharedPreference =
+            getSharedPreferences(MainActivity.SHARED_PREFERENCE, Context.MODE_PRIVATE)
         if (sharedPreference.contains("fcmToken")) {
 
             val token = sharedPreference.getString("fcmToken", "")
 
             println("fcmToken in SharedPreferences -> " + token)
             if (!token.equals("")) {
-               mainViewModel.sendRegistrationToServer(token!!)
+                mainViewModel.sendRegistrationToServer(token!!)
             }
         } else {
             println("-------------------we dont have fcmToken here===================------")
@@ -103,19 +98,73 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
         navController = findNavController(this, R.id.nav_host_fragment)
 
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            userId = FirebaseAuth.getInstance().currentUser!!.uid
+            navController.navigate(R.id.postListFragment)
+        } else {
+
+        }
+
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
 
         }
 
-        readQRTextView.setOnClickListener {
-            navView.visibility = View.GONE
-            navController.navigate(R.id.QRCodeScannerFragment2)
+        /**  readQRTextView.setOnClickListener {
+        navView.visibility = View.GONE
+        navController.navigate(R.id.QRCodeScannerFragment2)
+        }
+         **/
+        binding.cartImageView.setOnClickListener {
+
+        }
+
+        binding.chatsImageView.setOnClickListener {
+            navController.navigate(R.id.chatListFragment)
         }
 
 
+        binding.bottomNavView.setupWithNavController(navController)
+        navController.navigate(R.id.postListFragment)
 
+        binding.bottomNavView.setOnNavigationItemSelectedListener {
+            return@setOnNavigationItemSelectedListener when (it.itemId) {
+                R.id.searchTab -> {
 
+                    true
+                }
+                R.id.homeTab -> {
+                    navController.navigate(R.id.postListFragment)
+                    true
+                }
+                R.id.addPostTab -> {
+                    navController.navigate(R.id.editPostFragment)
+                    true
+                }
+                R.id.profileTab -> {
+                    val bundle = Bundle()
+                    bundle.putString(UserDetailFragment.USER_ID_KEY, userId)
+                    navController.navigate(R.id.userDetailFragment4, bundle)
+                    true
+                }
+                R.id.qrCodeScanerTab -> {
+                    navController.navigate(R.id.QRCodeScannerFragment2)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
 
+    fun setCartButtonVisible() {
+        mainViewModel.setCartButtonVisible()
+    }
+
+    fun setChatButtonVisible() {
+        mainViewModel.setChatsButtonVisible()
+    }
+
+    fun setRightButtonInvisible() {
+        mainViewModel.setRightButtonInvisible()
     }
 
     private fun requestPermission() {
@@ -129,11 +178,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                 ),
                 PERMISSION_REQUEST
             )
-
         }
-
-
-
     }
 
     override fun onRequestPermissionsResult(
@@ -141,6 +186,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             } else {
@@ -175,6 +221,17 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         ActivityCompat.startActivityForResult(this, intent, MENU_ITEM_IMAGE_REQUEST, null)
     }
 
+    fun choosePostImage() {
+        println("choosePostImage start")
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+
+        intent.setType("image/*")
+        ActivityCompat.startActivityForResult(this, intent, POST_IMAGE_REQUEST, null)
+        println("choosePostImage end")
+    }
+
+
     private val disposable = CompositeDisposable()
 
     fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
@@ -192,7 +249,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        println("-----------------------USER_ID in MainActivity -------------------> " +userId)
+        println("-----------------------USER_ID in MainActivity -------------------> " + userId)
 
         if (resultCode == Activity.RESULT_OK
             && data != null && data.data != null
@@ -204,9 +261,21 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                     .subscribe({
                         imageIdListener!!.imageID(it!!)
                     }, {
-                        println("error in onActivityResult - > " + it.stackTrace!!.contentToString())
+                        println("error in onActivityResult(menuItem image request) - > " + it.stackTrace!!.contentToString())
                     })
                     .addTo(disposable)
+            } else {
+                if (requestCode == POST_IMAGE_REQUEST) {
+                    imageIdFromUri(data.data!!, "bucket" + userId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            postImageIDListener!!.imageID(it!!)
+                        }, {
+                            println("error in onActivityResult(post image request) - > " + it.stackTrace!!.contentToString())
+                        })
+                        .addTo(disposable)
+                }
             }
 
 
@@ -236,7 +305,13 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         fun imageID(id: String)
     }
 
+    interface PostEditImageIDListener {
+        fun imageID(id: String)
+    }
+
+
     var imageIdListener: MenuItemImageIDListener? = null
+    var postImageIDListener: PostEditImageIDListener? = null
 
     interface OnChatCommandListener {
         fun onActivityCreated()

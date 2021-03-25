@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcoolapp.menuhub.databinding.MenuItemsRecyclerViewBinding
@@ -35,7 +36,7 @@ class MenuViewPagerViewHolder(private val binding: MenuItemsRecyclerViewBinding)
         val context = binding.root.context
         binding.menuItemsListRecyclerView.setHasFixedSize(true)
         binding.menuItemsListRecyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            GridLayoutManager(context, 2)
         binding.menuItemsListRecyclerView.isNestedScrollingEnabled = false
         binding.menuItemsListRecyclerView.adapter = MenuItemsListAdapter(itemsList)
     }

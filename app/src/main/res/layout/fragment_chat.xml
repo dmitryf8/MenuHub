@@ -37,11 +37,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="#FFFFFF"
-                android:inputType="textAutoComplete"
+                android:inputType="textCapSentences"
                 android:hint="@string/write_msg"
                 android:imeOptions="actionSend"
                 android:singleLine="false"
-                android:textColorLink="#00FFFFFF" />
+                android:textColorLink="#00FFFFFF"
+                />
             <ImageView
                 android:id="@+id/sendTextButton"
                 android:layout_width="50dp"
